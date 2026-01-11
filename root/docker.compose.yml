@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # Service untuk Aplikasi PHP
+  app:
+    build: .
+    ports:
+      - "8080:80" # Akses di browser nanti pakai localhost:8080
+    volumes:
+      - .:/var/www/html # Biar kalau edit codingan, langsung berubah (live)
+    depends_on:
+      - db
+
+  # Service untuk Database (MySQL/MariaDB)
+  db:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword # Ganti sesuai keinginan
+      MYSQL_DATABASE: sarpras_db      # Nama database kamu
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

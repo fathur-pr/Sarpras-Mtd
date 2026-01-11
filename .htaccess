@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Matikan fitur MultiViews biar ga bentrok
+Options -MultiViews
+
+# Jika file yang diminta BUKAN folder
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Dan jika file .php nya ada
+RewriteCond %{REQUEST_FILENAME}.php -f
+
+# Maka buka file .php nya tapi sembunyikan ekstensi di URL
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
